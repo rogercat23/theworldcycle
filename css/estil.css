@@ -1,0 +1,135 @@
+/*RESTART CSS 0*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*CSS ESTIL LA PÀGINA*/
+body{
+	color:black;
+	background-color:#f1eee3;
+}
+
+/*DIV cos general*/
+.cos{
+    position:relative;
+}
+
+/*DIV del Titol que esta a dalt*/
+#qd_titol{
+    background-color:#459e00;
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100px;
+	z-index:1;
+}
+
+/*DIV del cos*/
+#qd_cos{
+    position: absolute;
+    width:100%;
+    top:100px;
+}
+
+/*DIV del peu*/
+#qd_peu{
+    background-color:#459e00;
+    position: relative;
+    top: 100px;
+}
+/*Logo The World Cycle*/
+#img_logo{
+    width: 100%;  
+ }
+
+
+/*Menú horitzontal amb UL LI*/
+#botons_menu_hor {
+	position:relative;
+    padding: 0;
+}
+
+#botons_menu_hor li{
+    display: inline;
+}
+
+#botons_menu_hor li a {
+    font-family: Arial;
+    font-size:11px;
+	color:black;
+    text-decoration: none;
+    float:left;
+    padding: 10px;
+    background-color:#459e00;
+}
+
+#botons_menu_hor li a:hover {
+	color:white;
+    background-color: black;
+}
+
+#formulari-usuari{
+	position:fixed;
+	right:10px;	
+}
+
+#centre-form{
+	position:absolute;
+	right:30%;
+	width:40%;
+}
+
+#centre-form h1{
+	text-align:center;
+}
+
+#taula_productes tr th{
+	color:red;
+}
+
+p{
+	font-size:40px;
+	text-align:center;
+}
+
