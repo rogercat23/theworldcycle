@@ -470,7 +470,7 @@ function comprovarCamps(iddiv,id){
 				switch(id){
 					case 'correu':
 						for(u=0;u<correus.length;u++){ //comprovar tots els correus que tenim BD i comprar que tenim posat actualment per evitar tenir un altre igual
-							if(cor==correus[u]){
+							if(vari==correus[u]){
 								$("#"+iddiv).removeClass("has-warning has-error has-success");
 								$("#"+iddiv ).addClass("has-error");
 								mostrar_notificacio_pnotify("Correu","Ja tenim registrat aquest correu!","error");
