@@ -73,37 +73,37 @@
                     <form  action="controlregistrar.php" method="post" id="formulariregistrar">
                       <div class="form-group">
                         <label>Usuari:</label>
-                        <div id="correudiv">
-                        	<input type="email" class="form-control" id="correu" name="correu" placeholder="Correu" onChange="comprCorreu()"></br>
+                        <div id="correudiv" class="has-feedback">
+                        	<input type="email" class="form-control" id="correu" name="correu" placeholder="Correu" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="correuicon" class="form-control-feedback glyphicon "></span></br>
                         </div>
                         <div class="row">
                          	<div class="col-xs-6" id="passworddiv">
-                        		<input type="password" class="form-control" id="password" name="password" placeholder="Password" onChange="comprPass1()">
+                        		<input type="password" class="form-control" id="password" name="password" placeholder="Password" onChange="comprovarCamps(this.parentNode.id, this.id)">
                          	</div>
                          	<div class="col-xs-6" id="password2div">
-                        		<input type="password" class="form-control" id="password2"  name="password2" placeholder="Repetir password" onChange="comprPass2()">
+                        		<input type="password" class="form-control" id="password2"  name="password2" placeholder="Repetir password" onChange="comprovarCamps(this.parentNode.id, this.id)">
                         	</div>
                        </div>
                       </div>
                       <div class="form-group">
                         <label>Dades personals:</label>
                         <div id="nomdiv">
-                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" onChange="comprNom()"></br>
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" onChange="comprovarCamps(this.parentNode.id, this.id)"></br>
                         </div>
                         <div class="row">
                          	<div id="cognom1div" class="col-xs-6">
-                        		<input type="text" class="form-control" id="cognom1" name="cognom1" placeholder="Primer cognom" onChange="comprCognom1()">
+                        		<input type="text" class="form-control" id="cognom1" name="cognom1" placeholder="Primer cognom" onChange="comprovarCamps(this.parentNode.id, this.id)">
                          	</div>
                          	<div class="col-xs-6" id="cognom2div">
-                        		<input type="text" class="form-control" id="cognom2" name="cognom2" placeholder="Segon cognom" onChange="comprCognom2()">
+                        		<input type="text" class="form-control" id="cognom2" name="cognom2" placeholder="Segon cognom" onChange="comprovarCamps(this.parentNode.id, this.id)">
                         	</div>
                        </div></br>
                        <div class="row">
                          	<div class="col-xs-6" id="telefondiv">
-                        		<input type="text" class="form-control" id="telefon" name="telefon" placeholder="Tel&eacute;fon" onChange="comprTel()">
+                        		<input type="text" class="form-control" id="telefon" name="telefon" placeholder="Tel&eacute;fon" onChange="comprovarCamps(this.parentNode.id, this.id)">
                         	</div>
                          	<div class="col-xs-6" id="data_naixdiv">
-                        		<input type="text" class="form-control" id="data_naix" name="data_naix" placeholder="Data de naixament" onChange="comprDataNaix()">
+                        		<input type="text" class="form-control" id="data_naix" name="data_naix" placeholder="Data de naixament" onChange="comprovarCamps(this.parentNode.id, this.id)">
                             </div>
                        </div>
                       </div>
@@ -111,24 +111,24 @@
                       	<label>Adre&ccedil;a:</label>
                         <div class="row">
                              <div class="col-xs-8" id="ciutatdiv">
-                                <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Ciutat" onChange="comprCiutat()">
+                                <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Ciutat" onChange="comprovarCamps(this.parentNode.id, this.id)">
                               </div>
                               <div class="col-xs-4" id="postaldiv">
-                                <input type="text" class="form-control" id="postal" name="postal" placeholder="Postal" onChange="comprPostal()">
+                                <input type="text" class="form-control" id="postal" name="postal" placeholder="Postal" onChange="comprovarCamps(this.parentNode.id, this.id)">
                               </div>
                         </div></br>
                         <div id="carrerdiv">
-                        	<input type="text" class="form-control" id="carrer" name="carrer" placeholder="Carrer" onChange="comprCarrer()"></br>
+                        	<input type="text" class="form-control" id="carrer" name="carrer" placeholder="Carrer" onChange="comprovarCamps(this.parentNode.id, this.id)"></br>
                         </div>
                       	 <div class="row">
                              <div class="col-xs-4" id="numerodiv">
-                                <input type="text" class="form-control" id="numero" name="numero" placeholder="N&uacute;mero" onChange="comprNum()">
+                                <input type="text" class="form-control" id="numero" name="numero" placeholder="N&uacute;mero" onChange="comprovarCamps(this.parentNode.id, this.id)">
                               </div>
                               <div class="col-xs-4" id="pisdiv">
-                                <input type="text" class="form-control" id="pis" name="pis" placeholder="Pis" onChange="comprPis()">
+                                <input type="text" class="form-control" id="pis" name="pis" placeholder="Pis" onChange="comprovarCamps(this.parentNode.id, this.id)">
                               </div>
                               <div class="col-xs-4" id="portadiv">
-                                <input type="text" class="form-control" id="porta" name="porta" placeholder="Porta" onChange="comprPorta()">
+                                <input type="text" class="form-control" id="porta" name="porta" placeholder="Porta" onChange="comprovarCamps(this.parentNode.id, this.id)">
                               </div>
                           </div>  
                       </div>

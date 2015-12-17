@@ -25,7 +25,9 @@ $(document).ready(function() {
 		$( "#portadiv" ).removeClass("has-warning has-error has-success");	
 	}
 	
-	$.datepicker.regional['ca'] = { //Ficar format catala que no sortia les libreries de jquery UI
+	$.datepicker.regional['ca'] = { //Ficar format catala que no sortia les libreries de jquery UI i que deixi triar opció per canviar mes i any
+		changeMonth: true,
+		changeYear: true,
 		closeText: 'Tancar',
 		prevText: '&#x3c;Ant',
 		nextText: 'Seg&#x3e;',
@@ -320,289 +322,164 @@ function mostrar_notificacio_pnotify(titol, missatge, tipus){ //crear finestres 
 	new PNotify(notf); //mostra notificació amb variable opcions fets
 }
 
-function comprCorreu(){
-	var compcor = true;
-	var omplitcor = true;
-	var cor = $("#correu").val();
-	$( "#correudiv" ).removeClass("has-warning has-error has-success");
-	if($("#correu").val().length == 0) {
-		$("#correudiv" ).addClass("has-error");	
-		omplitcor = false;
-		mostrar_notificacio_pnotify("Correu","No has introduit res!","error");
+//Funció per comprovar tots els expressions regulars: variable introduida, expressio regular i id div per mostrar error o correcte. Si es incorrecte retorna false sinó true
+function expressioRegular(vari, regtext, id){
+	if (regtext.test(vari)){
+		$("#"+id).addClass("has-success"); //posem verd que es correcte
+		return true;
 	} else {
-		var correu = $("#correu").val();
-		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(correu)){
-			for(u=0;u<correus.length;u++){ //comprovar tots els correus que tenim BD i comprar que tenim posat actualment per evitar tenir un altre igual
-				if(cor==correus[u]){
-					$("#correudiv" ).addClass("has-error");
-					compcor = false;
-					mostrar_notificacio_pnotify("Correu","Ja tenim registrat aquest correu!","error");
+		$("#"+id).addClass("has-error");//esta malament posem error color vermell i missatge
+		return false;
+	}
+}
+
+//Funció per comprovar tots els camps que siguin correcte abans d'enviar a BD o fer una consulta
+function comprovarCamps(iddiv,id){
+	var vari = $("#"+id).val();
+	$("#"+iddiv).removeClass("has-warning has-error has-success");
+	if($("#"+id).val().length == 0) {
+		$("#"+iddiv).addClass("has-error");
+		$("#"+iddiv+"icon").addClass("glyphicon-remove");
+		switch(id){
+			case 'correu':
+				mostrar_notificacio_pnotify("Correu","No has introduit res!","error");
+			break;
+			case 'password':
+				mostrar_notificacio_pnotify("Password","No has introduit res!","error");
+			break;
+			case 'password2':
+				mostrar_notificacio_pnotify("Repetir Password","No has introduit res!","error");
+			break;
+			case 'nom':
+				mostrar_notificacio_pnotify("Nom","No has introduit res!","error");
+			break;
+			case 'cognom1':
+				mostrar_notificacio_pnotify("Primer cognom","No has introduit res!","error");
+			break;
+			case 'cognom2':
+				mostrar_notificacio_pnotify("Segon cognom","No has introduit res!","error");
+			break;
+			case 'telefon':
+				mostrar_notificacio_pnotify("Tel&ecirc;fon","No has introduit res!","error");
+			break;
+			case 'data_naix':
+				mostrar_notificacio_pnotify("Data de naixament","No has introduit res!","error");
+			break;
+			case 'ciutat':
+				mostrar_notificacio_pnotify("Ciutat","No has introduit res!","error");
+			break;
+			case 'postal':
+				mostrar_notificacio_pnotify("Postal","No has introduit res!","error");
+			break;
+			case 'carrer':
+				mostrar_notificacio_pnotify("Carrer","No has introduit res!","error");
+			break;
+			case 'numero':
+				mostrar_notificacio_pnotify("Numero","No has introduit res!","error");
+			break;
+			case 'pis':
+				mostrar_notificacio_pnotify("Pis","No has introduit res!","error");
+			break;
+			case 'porta':
+				mostrar_notificacio_pnotify("Porta","No has introduit res!","error");
+			break;
+		}
+	} else {
+		switch(id){
+			case 'correu':
+				var regtext = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+			break;
+			case 'password2':
+				var pas1 = $("#password").val();
+				var pas2 = $("#password2").val();
+				//alert(pas1 +" "+ pas2);
+				if( pas1 != pas2 ){
+					mostrar_notificacio_pnotify('Les contrassenyes!','No s&oacute;n les mateixes i torna introduir!','error' );
+					$("#passworddiv" ).addClass("has-warning");
+					$("#password2div" ).addClass("has-warning");
+					comppas2 =false;
+				} else {
+					$("#passworddiv" ).removeClass("has-warning has-error has-success"); //per poder afegir que es correcte sino no canvia estat per no haver borrat estat warning
+					$("#passworddiv" ).addClass("has-success");
+					$("#password2div" ).addClass("has-success");
 				}
+			break;
+			case 'nom':
+			case 'cognom1':
+			case 'cognom2':
+			case 'ciutat':
+				var regtext = /^([A-Z a-z ñàèòáéíóú]{2,60})$/;
+			break;
+			case 'telefon':
+				var regtext = /^\d{9}$/;
+			break;
+			case 'data_naix':
+				var regtext = /(\d{1,2})\/(\d{1,2})\/(\d{4})/;
+			break;
+			case 'postal':
+				var regtext = /^\d{5}$/;
+			break;
+			case 'numero':
+			case 'pis':
+			case 'porta':
+				var regtext = /^([0-9])*$/;
+			break;
+			default:// de moment entra són password i carrer
+				$("#"+iddiv ).addClass("has-success");
+			break;
+		}
+		if(typeof regtext != "undefined"){
+			var comp = expressioRegular(vari, regtext, iddiv);
+			if(!comp){
+				switch(id){
+					case 'correu':
+						mostrar_notificacio_pnotify("Correu","El format del correu es xxx@xxx.xx","error");
+					break;
+					case 'nom':
+						mostrar_notificacio_pnotify("Nom","Han de ser caracters!","error");
+					break;
+					case 'cognom1':
+						mostrar_notificacio_pnotify("Primer Cognom","Han de ser caracters!","error");
+					break;
+					case 'cognom2':
+						mostrar_notificacio_pnotify("Segon cognom","Han de ser caracters!","error");
+					break;
+					case 'telefon':
+						mostrar_notificacio_pnotify("Tel&ecirc;fon","Ha de tenir nou numeros!","error");
+					break;
+					case 'data_naix':
+						mostrar_notificacio_pnotify("Data de naixament","El format ha de ser dd/mm/aaaa","error");
+					break;
+					case 'ciutat':
+						mostrar_notificacio_pnotify("Ciutat","Han de ser caracters!","error");
+					break;
+					case 'postal':
+						mostrar_notificacio_pnotify("Postal","Han de ser 5 numeros!","error");
+					break;
+					case 'numero':
+						mostrar_notificacio_pnotify("Numero","Han de ser numeros!","error");
+					break;
+					case 'pis':
+						mostrar_notificacio_pnotify("Pis","Han de ser numeros!","error");
+					break;
+					case 'porta':
+						mostrar_notificacio_pnotify("Porta","Han de ser numeros!","error");
+					break;
+				}
+			} else {
+				switch(id){
+					case 'correu':
+						alert("ATENCIÓ: FALTA COMPROVAR SI EXISTEIX CORREU I ETC.");
+						for(u=0;u<correus.length;u++){ //comprovar tots els correus que tenim BD i comprar que tenim posat actualment per evitar tenir un altre igual
+							if(cor==correus[u]){
+								$("#"+iddiv).removeClass("has-warning has-error has-success");
+								$("#"+iddiv ).addClass("has-error");
+								mostrar_notificacio_pnotify("Correu","Ja tenim registrat aquest correu!","error");
+							}
+						}
+					break;
+				}	
 			}
-			if(compcor){
-				$("#correudiv" ).addClass("has-success");//per mostrar que es correcte i no tenim en BD
-			}
-		} else {
-			$("#correudiv" ).addClass("has-error");//esta malament posem error color vermell i missatge
-			compcor = false;
-			mostrar_notificacio_pnotify("Correu","El format del correu es xxx@xxx.xx","error");
-		}
-	}
-}
-
-function comprPass1(){
-	var comppas1 = true;
-	var omplitpas1 = true;
-	var pas = $("#password").val();
-	$( "#passworddiv" ).removeClass("has-warning has-error has-success");
-	if($("#password").val().length == 0) {
-		$("#passworddiv" ).addClass("has-error");
-		omplitpas1 = false;	
-		mostrar_notificacio_pnotify("Password","No has introduit res!","error");
-	} else {
-		$("#passworddiv" ).addClass("has-success");
-	}	
-}
-
-function comprPass2(){
-	var comppas2 = true;
-	var omplitpas2 = true;
-	var pas2 = $("#password2").val();
-	$( "#password2div" ).removeClass("has-warning has-error has-success");
-	if($("#password2").val().length == 0) {
-		$("#password2div" ).addClass("has-error");	
-		omplitpas2 = false;
-		mostrar_notificacio_pnotify("Repetir Password","No has introduit res!","error");
-	} else {
-		//Aqui comparar les dues contrassenyes que siguin iguals
-		var pas1 = $("#password").val();
-		var pas2 = $("#password2").val();
-		//alert(pas1 +" "+ pas2);
-		if( pas1 != pas2 ){
-			mostrar_notificacio_pnotify('Les contrassenyes!','No s&oacute;n les mateixes i torna introduir!','error' );
-			$("#passworddiv" ).addClass("has-warning");
-			$("#password2div" ).addClass("has-warning");
-			comppas2 =false;
-		} else {
-			$("#passworddiv" ).removeClass("has-warning has-error has-success"); //per poder afegir que es correcte sino no canvia estat per no haver borrat estat warning
-			$("#passworddiv" ).addClass("has-success");
-			$("#password2div" ).addClass("has-success");
-		}
-	}
-}
-
-function comprNom(){
-	var compnom = true;
-	var omplitnom = true;
-	var nom = $("#nom").val();
-	$( "#nomdiv" ).removeClass("has-warning has-error has-success");
-	if($("#nom").val().length == 0) {
-		$("#nomdiv" ).addClass("has-error");
-		omplitnom = false;
-		mostrar_notificacio_pnotify("Nom","No has introduit res!","error");
-	} else {
-		var nom = $("#nom").val();
-		if (/^([A-Z a-z ñàèòáéíóú]{2,60})$/.test(nom)){
-			$("#nomdiv" ).addClass("has-success"); //posem verd que es correcte
-		} else {
-			compnom =false;
-			$("#nomdiv" ).addClass("has-error");//esta malament posem error color vermell i missatge
-			mostrar_notificacio_pnotify("Nom","Han de ser caracters!","error");
-		}
-	}
-}
-
-function comprCognom1(){
-	var compcog1 = true;
-	var omplitcog1 = true;
-	var cog1 = $("#cognom1").val();
-	$( "#cognom1" ).removeClass("has-warning has-error has-success");
-	if($("#cognom1").val().length == 0) {
-		$("#cognom1div" ).addClass("has-error");
-		omplitcog1 = false;
-		mostrar_notificacio_pnotify("Primer cognom","No has introduit res!","error");	
-	} else {
-		var cognom1 = $("#cognom1").val();
-		if (/^([A-Z a-z ñàèòáéíóú]{2,60})$/.test(cognom1)){
-			$("#cognom1div" ).addClass("has-success"); //posem verd que es correcte
-		} else {
-			compcog1 =false;
-			$("#cognom1div" ).addClass("has-error");//esta malament posem error color vermell i missatge
-			mostrar_notificacio_pnotify("Nom","Han de ser caracters!","error");
-		}
-	}
-}
-
-function comprCognom2(){
-	var compcog2 = true;
-	var omplitcog2 = true;
-	var cognom2 = $("#cognom2").val();
-	$( "#cognom2div" ).removeClass("has-warning has-error has-success");
-	if($("#cognom2").val().length == 0) {
-		$("#cognom2div" ).addClass("has-error");
-		omplitcog2 = false;
-		mostrar_notificacio_pnotify("Segon cognom","No has introduit res!","error");	
-	} else {
-		var cognom2 = $("#cognom2").val();
-		if (/^([A-Z a-z ñàèòáéíóú]{2,60})$/.test(cognom2)){
-			$("#cognom2div" ).addClass("has-success"); //posem verd que es correcte
-		} else {
-			compcog2 =false;
-			mostrar_notificacio_pnotify("Nom","Han de ser caracters!","error");
-			$("#cognom2div" ).addClass("has-error");//esta malament posem error color vermell i missatge
-		}
-	}		
-}
-
-function comprTel(){
-	var comptel = true;
-	var omplittel = true;
-	var telf = $("#telefon").val();
-	$( "#telefondiv" ).removeClass("has-warning has-error has-success");
-	if($("#telefon").val().length == 0) {
-		$("#telefondiv" ).addClass("has-error");
-		omplittel = false;
-		mostrar_notificacio_pnotify("Tel&ecirc;fon","No has introduit res!","error");
-	} else {
-		if (/^\d{9}$/.test(telf)){
-			$("#telefondiv" ).addClass("has-success"); //posem verd que es correcte
-		} else {
-			comptel =false;
-			mostrar_notificacio_pnotify("Tel&ecirc;fon","Ha de tenir nou numeros!","error");
-			$("#telefondiv" ).addClass("has-error");//esta malament posem error color vermell i missatge
-		}
-	}
-}
-
-function comprDataNaix(){
-	var compDataN = true;
-	var omplitDataN = true;
-	var data = $("#data_naix").val();
-	$( "#data_naixdiv" ).removeClass("has-warning has-error has-success");
-	if($("#data_naix").val().length == 0) {
-		$("#data_naixdiv" ).addClass("has-error");
-		omplitDataN = false;
-		mostrar_notificacio_pnotify("Data de naixament","No has introduit res!","error");	
-	} else {
-		if (/^\d{2}\/\d{2}\/\d{4}$/.test(data)){
-			$("#data_naixdiv" ).addClass("has-success"); //posem verd que es correcte
-		} else {
-			compDataN =false;
-			mostrar_notificacio_pnotify("Data de naixament","El format ha de ser dd/mm/aaaa","error");
-			$("#data_naixdiv" ).addClass("has-error");//esta malament posem error color vermell i missatge
 		}
 	}	
-}
-
-function comprCiutat(){
-	var compciutat = true;
-	var omplitciutat = true;
-	var ciutat = $("#ciutat").val();
-	$( "#ciutatdiv" ).removeClass("has-warning has-error has-success");
-	if($("#ciutat").val().length == 0) {
-		$("#ciutatdiv" ).addClass("has-error");
-		omplitciutat = false;
-		mostrar_notificacio_pnotify("Ciutat","No has introduit res!","error");
-	} else {
-		if (/^([A-Z a-z ñàèòáéíóú]{2,60})$/.test(ciutat)){
-			$("#ciutatdiv" ).addClass("has-success"); //posem verd que es correcte
-		} else {
-			compciutat =false;
-			mostrar_notificacio_pnotify("Ciutat","Han de ser caracters!","error");
-			$("#ciutatdiv" ).addClass("has-error");//esta malament posem error color vermell i missatge
-		}
-	}	
-}
-
-function comprPostal(){
-	var comppos = true;
-	var omplitpos = true;
-	var post = $("#postal").val();
-	$( "#postaldiv" ).removeClass("has-warning has-error has-success");
-	if($("#postal").val().length == 0) {
-		$("#postaldiv" ).addClass("has-error");
-		omplitpos = false;
-		mostrar_notificacio_pnotify("Postal","No has introduit res!","error");
-	} else {
-		if (/^\d{5}$/.test(post)){
-			$("#postaldiv" ).addClass("has-success"); //posem verd que es correcte
-		} else {
-			comppos =false;
-			mostrar_notificacio_pnotify("Ciutat","Han de tenir cinc numeros","error");
-			$("#postaldiv" ).addClass("has-error");//esta malament posem error color vermell i missatge
-		}
-	}	
-}
-
-function comprCarrer(){
-	var compcarr = true;
-	var omplitcarr = true;
-	var carrer = $("#carrer").val();
-	$( "#carrerdiv" ).removeClass("has-warning has-error has-success");
-	if($("#carrer").val().length == 0) {
-		$("#carrerdiv" ).addClass("has-error");
-		omplitcarr = false;
-		mostrar_notificacio_pnotify("Carrer","No has introduit res!","error");
-	} else {
-		$("#carrerdiv" ).addClass("has-success");
-	}
-}
-
-function comprNum(){
-	var compnum = true;
-	var omplitnum = true;
-	var numero = $("#numero").val();
-	$( "#numerodiv" ).removeClass("has-warning has-error has-success");
-	if($("#numero").val().length == 0) {
-		$("#numerodiv" ).addClass("has-error");
-		omplitnum = false;
-		mostrar_notificacio_pnotify("Numero","No has introduit res!","error");	
-	} else {
-		var numero = $("#numero").val();
-		if (/^([0-9])*$/.test(numero)){
-			$("#numerodiv" ).addClass("has-success"); //posem verd que es correcte
-		} else {
-			compnum =false;
-			mostrar_notificacio_pnotify("Numero","Han de ser numeros","error");
-			$("#numerodiv" ).addClass("has-error");//esta malament posem error color vermell i missatge
-		}
-	}	
-}
-
-function comprPis(){
-	var comppis = true;
-	var omplitpis = true;
-	var pis = $("#pis").val();
-	$( "#pisdiv" ).removeClass("has-warning has-error has-success");
-	if($("#pis").val().length == 0){
-		//$("#pisdiv" ).addClass("has-error");
-		omplitpis = false;
-	} else {
-		if (/^([0-9])*$/.test(pis)){
-			$("#pisdiv" ).addClass("has-success"); //posem verd que es correcte
-		} else {
-			comppis =false;
-			mostrar_notificacio_pnotify("Numero","Han de ser numeros","error");
-			$("#pisdiv" ).addClass("has-error");//esta malament posem error color vermell i missatge
-		}
-	}	
-}
-
-function comprPorta(){
-	var comppor = true;
-	var omplitpor = true;
-	var porta = $("#porta").val();
-	$( "#portadiv" ).removeClass("has-warning has-error has-success");
-	if($("#porta").val().length == 0){
-		//$("#portadiv" ).addClass("has-error");
-		omplitpor = false;
-	} else {
-		if (/^([0-9])*$/.test(porta)){
-			$("#portadiv" ).addClass("has-success"); //posem verd que es correcte
-		} else {
-			comppor =false;
-			mostrar_notificacio_pnotify("Pis","Han de ser numeros","error")
-			$("#portadiv" ).addClass("has-error");//esta malament posem error color vermell i missatge
-		}
-	}
 }
