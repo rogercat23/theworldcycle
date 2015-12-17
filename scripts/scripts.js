@@ -23,6 +23,21 @@ $(document).ready(function() {
 		$( "#numerodiv" ).removeClass("has-warning has-error has-success");
 		$( "#pisdiv" ).removeClass("has-warning has-error has-success");
 		$( "#portadiv" ).removeClass("has-warning has-error has-success");	
+		
+		$("#correuicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#passwordicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#password2icon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#nomicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#cognom1icon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#cognom2icon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#telefonicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#data_naixicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#ciutaticon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#postalicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#carrericon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#numeroicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#pisicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		$("#portaicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
 	}
 	
 	$.datepicker.regional['ca'] = { //Ficar format catala que no sortia les libreries de jquery UI i que deixi triar opció per canviar mes i any
@@ -322,13 +337,15 @@ function mostrar_notificacio_pnotify(titol, missatge, tipus){ //crear finestres 
 	new PNotify(notf); //mostra notificació amb variable opcions fets
 }
 
-//Funció per comprovar tots els expressions regulars: variable introduida, expressio regular i id div per mostrar error o correcte. Si es incorrecte retorna false sinó true
-function expressioRegular(vari, regtext, id){
+//Funció per comprovar tots els expressions regulars: variable introduida, expressio regular i id div i id input per mostrar error o correcte. Si es incorrecte retorna false sinó true
+function expressioRegular(vari, regtext, iddiv, id){
 	if (regtext.test(vari)){
-		$("#"+id).addClass("has-success"); //posem verd que es correcte
+		$("#"+iddiv).addClass("has-success"); //posem verd que es correcte
+		$("#"+id+"icon").addClass("glyphicon-ok");
 		return true;
 	} else {
-		$("#"+id).addClass("has-error");//esta malament posem error color vermell i missatge
+		$("#"+iddiv).addClass("has-error");//esta malament posem error color vermell i missatge
+		$("#"+id+"icon").addClass("glyphicon-remove");
 		return false;
 	}
 }
@@ -337,9 +354,10 @@ function expressioRegular(vari, regtext, id){
 function comprovarCamps(iddiv,id){
 	var vari = $("#"+id).val();
 	$("#"+iddiv).removeClass("has-warning has-error has-success");
+	$("#"+id+"icon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
 	if($("#"+id).val().length == 0) {
 		$("#"+iddiv).addClass("has-error");
-		$("#"+iddiv+"icon").addClass("glyphicon-remove");
+		$("#"+id+"icon").addClass("glyphicon-remove");
 		switch(id){
 			case 'correu':
 				mostrar_notificacio_pnotify("Correu","No has introduit res!","error");
@@ -397,11 +415,16 @@ function comprovarCamps(iddiv,id){
 					mostrar_notificacio_pnotify('Les contrassenyes!','No s&oacute;n les mateixes i torna introduir!','error' );
 					$("#passworddiv" ).addClass("has-warning");
 					$("#password2div" ).addClass("has-warning");
+					$("#passwordicon" ).addClass("glyphicon-alert");
+					$("#password2icon" ).addClass("glyphicon-alert");
 					comppas2 =false;
 				} else {
 					$("#passworddiv" ).removeClass("has-warning has-error has-success"); //per poder afegir que es correcte sino no canvia estat per no haver borrat estat warning
+					$("#passwordicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
 					$("#passworddiv" ).addClass("has-success");
 					$("#password2div" ).addClass("has-success");
+					$("#passwordicon" ).addClass("glyphicon-ok");
+					$("#password2icon" ).addClass("glyphicon-ok");
 				}
 			break;
 			case 'nom':
@@ -426,10 +449,11 @@ function comprovarCamps(iddiv,id){
 			break;
 			default:// de moment entra són password i carrer
 				$("#"+iddiv ).addClass("has-success");
+				$("#"+id+"icon").addClass("glyphicon-ok");
 			break;
 		}
 		if(typeof regtext != "undefined"){
-			var comp = expressioRegular(vari, regtext, iddiv);
+			var comp = expressioRegular(vari, regtext, iddiv, id);
 			if(!comp){
 				switch(id){
 					case 'correu':
@@ -472,7 +496,8 @@ function comprovarCamps(iddiv,id){
 						for(u=0;u<correus.length;u++){ //comprovar tots els correus que tenim BD i comprar que tenim posat actualment per evitar tenir un altre igual
 							if(vari==correus[u]){
 								$("#"+iddiv).removeClass("has-warning has-error has-success");
-								$("#"+iddiv ).addClass("has-error");
+								$("#"+iddiv ).addClass("has-warning");
+								$("#"+id+"icon").addClass("glyphicon-alert");
 								mostrar_notificacio_pnotify("Correu","Ja tenim registrat aquest correu!","error");
 							}
 						}
