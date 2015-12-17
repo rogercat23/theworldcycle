@@ -469,7 +469,6 @@ function comprovarCamps(iddiv,id){
 			} else {
 				switch(id){
 					case 'correu':
-						alert("ATENCIÓ: FALTA COMPROVAR SI EXISTEIX CORREU I ETC.");
 						for(u=0;u<correus.length;u++){ //comprovar tots els correus que tenim BD i comprar que tenim posat actualment per evitar tenir un altre igual
 							if(cor==correus[u]){
 								$("#"+iddiv).removeClass("has-warning has-error has-success");
