@@ -1,20 +1,9 @@
 <html>
     <head>
         <title> The World Cycle Web </title>
-        
-        <!-- ESTILS DE LA PÀGINA -->
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link href="css/pnotify.custom.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/bootstrap-theme.css">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-        <link href="css/estil.css" rel="stylesheet">
-        
-        <!-- LLIBRERIES DE LA PÀGINA -->
-        <script src="lib/external/jquery/jquery.js"></script>
-		<script src="lib/jquery-ui.js"></script>
-        <script src="lib/pnotify.custom.min.js"></script>
-        <script src="lib/bootstrap.min.js"></script>
-        <script src="scripts/scripts.js"></script>
+        <?php
+			include 'llibreries.php';
+		?>
     </head>
     <body>
         <div class="cos">
@@ -57,8 +46,76 @@
                 </ul>
             </div>
             <div id="qd_cos">
-				<p>Contacte</p>
-                
+                <div id="centre-form">
+                    <p>Contacte</p>
+                    <form  action="contacte.php" method="post" id="formularicontacte">
+                      <div class="form-group">
+                        <label>Usuari:</label>
+                        <div id="correudiv" class="has-feedback">
+                        	<input type="email" class="form-control" id="correu" name="correu" placeholder="Correu" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="correuicon" class="form-control-feedback glyphicon"></span></br>
+                        </div>
+                        <div class="row">
+                         	<div class="col-xs-6 has-feedback" id="passworddiv">
+                        		<input type="password" class="form-control" id="password" name="password" placeholder="Password" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="passwordicon" class="form-control-feedback glyphicon"></span>
+                         	</div>
+                         	<div class="col-xs-6 has-feedback" id="password2div">
+                        		<input type="password" class="form-control" id="password2"  name="password2" placeholder="Repetir password" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="password2icon" class="form-control-feedback glyphicon"></span>
+                        	</div>
+                       </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Dades personals:</label>
+                        <div id="nomdiv" class="has-feedback">
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="nomicon" class="form-control-feedback glyphicon"></span></br>
+                        </div>
+                        <div class="row">
+                         	<div id="cognom1div" class="col-xs-6 has-feedback">
+                        		<input type="text" class="form-control" id="cognom1" name="cognom1" placeholder="Primer cognom" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="cognom1icon" class="form-control-feedback glyphicon"></span>
+                         	</div>
+                         	<div class="col-xs-6 has-feedback" id="cognom2div">
+                        		<input type="text" class="form-control" id="cognom2" name="cognom2" placeholder="Segon cognom" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="cognom2icon" class="form-control-feedback glyphicon"></span>
+                        	</div>
+                       </div></br>
+                       <div class="row">
+                         	<div class="col-xs-6 has-feedback" id="telefondiv">
+                        		<input type="text" class="form-control" id="telefon" name="telefon" placeholder="Tel&eacute;fon" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="telefonicon" class="form-control-feedback glyphicon"></span>
+                        	</div>
+                         	<div class="col-xs-6 has-feedback" id="data_naixdiv">
+                        		<input type="text" class="form-control" id="data_naix" name="data_naix" placeholder="Data de naixament" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="data_naixicon" class="form-control-feedback glyphicon"></span>
+                            </div>
+                       </div>
+                      </div>
+                      <div class="form-group">
+                      	<label>Adre&ccedil;a:</label>
+                        <div class="row">
+                             <div class="col-xs-8 has-feedback" id="ciutatdiv">
+                                <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Ciutat" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="ciutaticon" class="form-control-feedback glyphicon"></span>
+                              </div>
+                              <div class="col-xs-4 has-feedback" id="postaldiv">
+                                <input type="text" class="form-control" id="postal" name="postal" placeholder="Postal" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="postalicon" class="form-control-feedback glyphicon"></span>
+                              </div>
+                        </div></br>
+                        <div id="carrerdiv" class="has-feedback">
+                        	<input type="text" class="form-control" id="carrer" name="carrer" placeholder="Carrer" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="carrericon" class="form-control-feedback glyphicon"></span></br>
+                        </div>
+                      	 <div class="row">
+                             <div class="col-xs-4 has-feedback" id="numerodiv">
+                                <input type="text" class="form-control" id="numero" name="numero" placeholder="N&uacute;mero" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="numeroicon" class="form-control-feedback glyphicon"></span>
+                              </div>
+                              <div class="col-xs-4 has-feedback" id="pisdiv">
+                                <input type="text" class="form-control" id="pis" name="pis" placeholder="Pis" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="pisicon" class="form-control-feedback glyphicon"></span>
+                              </div>
+                              <div class="col-xs-4 has-feedback" id="portadiv">
+                                <input type="text" class="form-control" id="porta" name="porta" placeholder="Porta" onChange="comprovarCamps(this.parentNode.id, this.id)"><span id="portaicon" class="form-control-feedback glyphicon"></span>
+                              </div>
+                          </div>  
+                      </div>
+                      <center>
+                          <button type="submit" class="btn btn-success">Enviar</button>
+                          <button type="reset" class="btn btn-danger" id="netejarform">Netejar</button>
+                      </center>
+                    </form>
+   				</div>
             </div>
         </div>
     </body>

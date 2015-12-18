@@ -9,20 +9,20 @@ $(document).ready(function() {
 	};
 	
 	function netejar_avisats(){
-		$( "#correudiv" ).removeClass("has-warning has-error has-success");
-		$( "#passworddiv" ).removeClass("has-warning has-error has-success");
-		$( "#password2div" ).removeClass("has-warning has-error has-success");
-		$( "#nomdiv" ).removeClass("has-warning has-error has-success");
-		$( "#cognom1div" ).removeClass("has-warning has-error has-success");
-		$( "#cognom2div" ).removeClass("has-warning has-error has-success");
-		$( "#telefondiv" ).removeClass("has-warning has-error has-success");
-		$( "#data_naixdiv" ).removeClass("has-warning has-error has-success");
-		$( "#ciutatdiv" ).removeClass("has-warning has-error has-success");
-		$( "#postaldiv" ).removeClass("has-warning has-error has-success");
-		$( "#carrerdiv" ).removeClass("has-warning has-error has-success");
-		$( "#numerodiv" ).removeClass("has-warning has-error has-success");
-		$( "#pisdiv" ).removeClass("has-warning has-error has-success");
-		$( "#portadiv" ).removeClass("has-warning has-error has-success");	
+		$("#correudiv").removeClass("has-warning has-error has-success");
+		$("#passworddiv").removeClass("has-warning has-error has-success");
+		$("#password2div").removeClass("has-warning has-error has-success");
+		$("#nomdiv").removeClass("has-warning has-error has-success");
+		$("#cognom1div").removeClass("has-warning has-error has-success");
+		$("#cognom2div").removeClass("has-warning has-error has-success");
+		$("#telefondiv").removeClass("has-warning has-error has-success");
+		$("#data_naixdiv").removeClass("has-warning has-error has-success");
+		$("#ciutatdiv").removeClass("has-warning has-error has-success");
+		$("#postaldiv").removeClass("has-warning has-error has-success");
+		$("#carrerdiv").removeClass("has-warning has-error has-success");
+		$("#numerodiv").removeClass("has-warning has-error has-success");
+		$("#pisdiv").removeClass("has-warning has-error has-success");
+		$("#portadiv").removeClass("has-warning has-error has-success");	
 		
 		$("#correuicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
 		$("#passwordicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");

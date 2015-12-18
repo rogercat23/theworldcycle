@@ -1,7 +1,7 @@
 <?php
 	// General BD
 	function connectBD(){
-		$con = mysqli_connect("localhost","roger","cep2015","theworldcycle");
+		$con = mysqli_connect("localhost","root","","theworldcycle");
 
 		if (mysqli_connect_errno())
 		  {

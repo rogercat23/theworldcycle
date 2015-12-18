@@ -1,31 +1,25 @@
- <?php //aquesta part es tracta pillar tots els ciutats de BD i guardem array. A més a més, passem a javascript per poder fer funcionar autocomplete (JqueryUI) per provar intenta escriure una ciutat i sortira la llista que tenim BD aixi evitem crear un altre amb poca diferencia
-	include 'BD.php';
-	$con=connectBD();
-	$ciutats = actalitzarCiutatsNoms($con);
-	$correus = actalitzarCorreusUsuaris($con);
-	tancarBD($con);
-?>
-<script type="text/javascript">
-	var ciutats = <?php echo json_encode($ciutats); ?>; //transformem tipus json que es array del javascript
-	var correus = <?php echo json_encode($correus);?> //igual ciutats (anterior) amb correus
-</script>
 <html>
     <head>
         <title> The World Cycle Web </title>
-        
-        <!-- ESTILS DE LA PÀGINA -->
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link href="css/pnotify.custom.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/bootstrap-theme.css">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-        <link href="css/estil.css" rel="stylesheet">
-        
-        <!-- LLIBRERIES DE LA PÀGINA -->
-        <script src="lib/external/jquery/jquery.js"></script>
-		<script src="lib/jquery-ui.js"></script>
-        <script src="lib/pnotify.custom.min.js"></script>
-        <script src="lib/bootstrap.min.js"></script>
-        <script src="scripts/scripts.js"></script>
+        <?php
+			include 'llibreries.php';
+			//aquesta part es tracta pillar tots els ciutats de BD i guardem array. A més a més, passem a javascript per poder fer funcionar autocomplete (JqueryUI) per 						provar intenta escriure una ciutat i sortira la llista que tenim BD aixi evitem crear un altre amb poca diferencia
+			/*include 'BD.php';
+			$con=connectBD();
+			$ciutats = actalitzarCiutatsNoms($con);
+			tancarBD($con);
+			*/
+			require_once("GeneralBD.php");
+			$GeneralBD = new GeneralBD();
+			$ciutats = $GeneralBD->runQuery1("SELECT nom FROM ciutat");
+			$correus = $GeneralBD->runQuery1("SELECT correu FROM usuari");
+			$GeneralBD->tancarBD();
+			echo gettype($ciutats);
+		?>
+        <script type="text/javascript">
+			var ciutats = <?php echo json_encode($ciutats);?>; //transformem tipus json que es array del javascript
+			var correus = <?php echo json_encode($correus);?> //igual ciutats (anterior) amb correus
+		</script>
     </head>
     <body>
         <div class="cos">
