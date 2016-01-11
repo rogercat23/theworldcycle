@@ -7,8 +7,8 @@
 			/*include 'BD.php';
 			$con=connectBD();
 			$ciutats = actalitzarCiutatsNoms($con);
-			tancarBD($con);
-			*/
+			tancarBD($con);*/
+			
 			require_once("GeneralBD.php");
 			$GeneralBD = new GeneralBD();
 			$ciutats = $GeneralBD->runQuery1("SELECT nom FROM ciutat");
