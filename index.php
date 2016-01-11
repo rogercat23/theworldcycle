@@ -56,14 +56,7 @@
                 </ul>
             </div>
             <div id="qd_cos">
-				<div id="myshow1" class="protoshow">
-                    <ul class="show">
-                        <li class="slide" data-slide-interval=""><img src="img/slide01.jpg" alt="Hiking up Mt. Villarica, Pucon, Chile - &copy; David Smith" /></li>
-                        <li class="slide" data-slide-interval=""><img src="img/slide02.jpg" alt="Mountains, Parque Nacional Lauca, Chile - &copy; David Smith" /></li>
-                        <li class="slide" data-slide-interval=""><img src="img/slide03.jpg" alt="Mountain reflections - &copy; David Smith" /></li>
-                        <li class="slide" data-slide-interval=""><img src="img/slide04.jpg" alt="Leaves in Singapore - &copy; David Smith" /></li>
-                    </ul>
-                </div>
+				
             </div>
         </div>
     </body>
