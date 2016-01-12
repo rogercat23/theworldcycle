@@ -1,9 +1,9 @@
 <?php
-//Classe generalBD amb quatre variables: host, usuari, password i nom de base de dades.
+//Classe generalBD amb quatre variables privats no podran modificar de manera de dinamica: host, usuari, password i nom de base de dades.
 class GeneralBD {
 	private $host = "localhost";
-	private $user = "roger";
-	private $password = "cep2015";
+	private $user = "root";
+	private $password = "";
 	private $database = "theworldcycle";
 	private $con;
 	
@@ -55,14 +55,5 @@ class GeneralBD {
 		mysqli_query($this->con, $query);
 		return mysqli_insert_id($this->con);
 	}
-	
-	function buscarCiutat($con,$ciutat){
-		$sql="SELECT * FROM ciutat WHERE nom LIKE '".$ciutat."'";
-		$result=mysqli_query($con,$sql);
-		$row=mysqli_fetch_row($result);
-		$id_ciutat = $row[0];
-		return $id_ciutat; //retorna IP de la ciutat trobat	
-	}
-	
 }
 ?>
