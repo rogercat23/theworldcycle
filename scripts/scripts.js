@@ -70,7 +70,7 @@ $(document).ready(function() {
 	}
 	
 	$("#formulariregistrar").submit(function(){//La hora de clicar per afegir, comprovarem que tots els camps estiguin bé i enviar, si es contrari no deixarem enviar i farem avis.
-		var correcte = true;	
+		/*var correcte = true;	
 		var divs = ["correudiv", "passworddiv", "password2div", "nomdiv", "cognom1div", "cognom2div", "telefondiv", "data_naixdiv", "ciutatdiv", "postaldiv", "carrerdiv", "numerodiv", "pisdiv", "portadiv"];
 		for(i=0;i<divs.length;i++){
 			alert("#"+divs[i]);
@@ -88,7 +88,7 @@ $(document).ready(function() {
 			}
 		}
 		return false;
-		//return correcte;
+		//return correcte;*/
 	});
 	
 	$("#netejarform").click(function(){

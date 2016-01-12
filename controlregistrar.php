@@ -48,6 +48,48 @@
             </div>
             <div id="qd_cos">
             	<?php 
+					require_once("GeneralBD.php");
+					
+					$correu = $_POST["correu"]; 
+					$pass = md5($_POST["password"]); 
+					$nom = $_POST["nom"]; 
+					$cognom1 = $_POST["cognom1"]; 
+					$cognom2 = $_POST["cognom2"]; 
+					$telefon = $_POST['telefon']; 
+					$carrer = $_POST["carrer"]; 
+					$data = $_POST["data_naix"];//pillem
+					$data_naix = str_replace('/','-',$data);//tranformem / per -
+					$data_naix = date('Y-m-d', strtotime($data_naix));//canviem format de data per poder guardar a BD
+					//echo $data_naix;
+					$num = $_POST["numero"]; 
+					$pis = $_POST['pis']; 
+					$por = $_POST['porta']; 
+					$pos = $_POST['postal'];
+					$ciutat = $_POST['ciutat'];  
+					$data_inici = date("Y-n-j");//Pilla data actual per guardar data_inici
+					//echo "correu: ". $correu ." password: ". $pass ." nom: ". $nom ." cognom1: ". $cognom1 ." cognom2: ". $cognom2 ." telefon: ". $telefon ." carrer: ". $carrer ." data de naixament: ". $data_naix ." data d'inici ". $data_inici ." numero: ". $num  ." pis: ". $pis ." porta: ". $por  ." postal: ". $pos ." ciutat: ". $ciutat;
+					//echo $data_inici;
+					
+					$GeneralBD = new GeneralBD();
+					
+					$ciutats = $GeneralBD->runQuery1("SELECT * FROM ciutat");
+					for($i=0;$i<count($ciutats);$i++){
+						if($ciutats[$i][1]==$ciutat){
+							echo "Ip de la ciutat es:". $ciutats[$i][0];
+							$id_ciutat = $ciutats[$i][0];
+						}
+					}
+					
+					if(!isset($id_ciutat)){//Després de haver buscat en BD, tenint compte si ha creat ip_ciutat significa ha trobat i si es contrari vol dir no ha trobat i haurem de crear.
+						echo "No tenim aquesta ciutat en BD"; 
+						$id_ciutat = $GeneralBD->InReturnId("INSERT INTO `ciutat` (`nom`) VALUES ('".$ciutat."');");
+						echo "Ip de la ciutat es ". $id_ciutat;
+					}
+					/*
+					$ciutats = $GeneralBD->runQuery1("SELECT nom FROM ciutat");
+					$correus = $GeneralBD->runQuery1("SELECT correu FROM usuari");
+					$GeneralBD->tancarBD();
+					
 					include 'BD.php';
 					//Guardar tots els camps del formulari dels camps introduits per poder guardar a BD
 					$correu = $_POST["correu"]; 
@@ -126,7 +168,7 @@
 					}
 					
 					mysqli_query($con,"INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_adreca`, `id_contrassenya`, `id_estat`) VALUES ('".$correu."', '".$nom."', '".$cognom1."', '".$cognom2."', '".$telefon."', '".$data_naix."', '".$data_inici."', '1', '".$id_adreca."', '".$id_pass."', '1');");
-					tancarBD($con);
+					tancarBD($con);*/
 				?>
             </div>
         </div>
